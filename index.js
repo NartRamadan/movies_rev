@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 
 
-const bodyParser = require('body-parser');
+const bodyParser= require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 
 let curr_id=1;
@@ -13,6 +13,17 @@ let r1={id:curr_id,title:"LOTR",content:"one to rull them all"};
 curr_id++;
 reviews.push(r1);
 
+
+app.post("/Review",(req,res)=>{
+    let item = {};
+    item.id = curr_id;
+    item.title = req.body.title;
+    item.content = req.body.content;
+    curr_id++;
+    reviews.push(item);
+
+    res.status(200).json(item);
+})
 
 app.listen(port, () => {            //server starts listening for any attempts from a client to connect at port: {port}
     console.log(`Now listening on port http://localhost:${port}`);
